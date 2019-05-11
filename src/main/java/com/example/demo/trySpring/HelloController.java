@@ -17,4 +17,10 @@ public class HelloController {
 	public String getHello() {
 		return "hello";
 	}
+
+	@GetMapping("/")
+	public String getIndex() {
+		return "hello";
+	}
+
 }
