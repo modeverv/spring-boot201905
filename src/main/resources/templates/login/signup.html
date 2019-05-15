@@ -17,8 +17,9 @@
             <tr>
                 <th class="active col-sm-3">ユーザーID</th>
                 <td>
-                    <div class="form-group">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('userId')} ? 'has-error'">
                         <input type="text" class="form-control" th:field="*{userId}"/>
+                        <span class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userIdError</span>
                     </div>
                 </td>
             </tr>
