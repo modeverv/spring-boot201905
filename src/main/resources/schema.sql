@@ -1,6 +1,5 @@
-create table if not exists employee(
-    employee_id int primary key,
-    employee_name varchar(50),
-    age int
+CREATE TABLE IF NOT EXISTS employee (
+  employee_id INT PRIMARY KEY,
+  employee_name VARCHAR(50),
+  age INT
 );
-
