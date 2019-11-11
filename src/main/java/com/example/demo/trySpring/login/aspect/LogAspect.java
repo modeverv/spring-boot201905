@@ -30,11 +30,34 @@ public class LogAspect {
 			System.out.println("アラウント終了:" + jp.getSignature());
 			return result;
 		} catch (Exception e) {
-			System.out.println("メソッド以上終了:" + jp.getSignature());
+			System.out.println("メソッド異常終了:" + jp.getSignature());
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
+	// beanでPointcutを指定
+	@Around("bean(*Controller)")
+	public Object beanLog(ProceedingJoinPoint jp) throws Throwable {
+		System.out.println("Beanアラウント開始:" + jp.getSignature());
+		try {
+			Object result = jp.proceed();
+			System.out.println("Beanアラウント終了:" + jp.getSignature());
+			return result;
+		} catch (Exception e) {
+			System.out.println("Beanメソッド異常終了:" + jp.getSignature());
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
+	// アノテーションでpointcutを指定
+	@Before("@annotation(org.springframework.web.bind.annotation.GetMapping)")
+	public void getMethodLog(JoinPoint jp) {
+		System.out.println("メソッドの開始:" + jp.getSignature());
+	}
+	// AOPの用語
+	// Advice 処理内容
+	// Pointcut 実行場所
+	// JoinPoint 実行タイミング
 }
