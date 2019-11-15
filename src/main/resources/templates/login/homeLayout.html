@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.tymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8"></meta>
 <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"
@@ -27,6 +28,8 @@
 			<div class="col-sm-2 sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a th:href="@{/userList}">ユーザー管理</a></li>
+					<li role="presentation" sec:authorize="hasRole('ADMIN')"><a
+						th:href="@{/admin}">アドミン</a></li>
 				</ul>
 			</div>
 		</div>

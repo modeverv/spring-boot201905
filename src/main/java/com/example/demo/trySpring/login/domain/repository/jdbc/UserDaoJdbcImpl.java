@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.trySpring.login.domain.model.User;
@@ -18,6 +19,9 @@ import com.example.demo.trySpring.login.domain.repository.UserDao;
 
 @Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Autowired
 	JdbcTemplate jdbc;
@@ -35,7 +39,8 @@ public class UserDaoJdbcImpl implements UserDao {
 		int rowNumber = jdbc.update(
 				"INSERT INTO m_user(user_id," + " password, " + " user_name, " + " birthday, " + " age, "
 						+ " marriage, " + " role) " + " VALUES (?,?,?,?,?,?,?)",
-				user.getUserId(), user.getPassword(), user.getUserName(), user.getBirthday(), user.getAge(),
+				user.getUserId(), passwordEncoder.encode(user.getPassword()), user.getUserName(), user.getBirthday(),
+				user.getAge(),
 				user.isMarriage(), user.getRole());
 		return rowNumber;
 	}
@@ -80,7 +85,7 @@ public class UserDaoJdbcImpl implements UserDao {
 				+ " WHERE user_id = :userId ";
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", u.getUserId());
-		params.put("password", u.getPassword());
+		params.put("password", passwordEncoder.encode(u.getPassword()));
 		params.put("userName", u.getUserName());
 		params.put("birthday", u.getBirthday());
 		params.put("age", u.getAge());
