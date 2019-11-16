@@ -1,10 +1,9 @@
 package com.example.demo;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,17 +26,17 @@ public class HomeControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@MockBean
 	private UserService service;
-	
+
 	@Test
 	@WithMockUser
 	public void ユーザーリスト() throws Exception {
 		when(service.count()).thenReturn(10);
 		mockMvc.perform(get("/userList")).andExpect(status().isOk()).andExpect(content().string(containsString("10件")));
 	}
-	
+
 	@Test
 	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = { "classpath:test.sql" })
 	public void 終了処理() {

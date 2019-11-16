@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,13 +25,13 @@ public class UserDaoTest {
 
 	@Test
 	public void countTest1() {
-		assertEquals(dao.count(), 2);
+		assertEquals(0, dao.count());
 	}
 
 	@Test
 	@Sql("/testdata.sql")
 	public void countTest2() {
-		assertEquals(dao.count(), 3);
+		assertEquals(1, dao.count());
 	}
 
 	@Test
